@@ -44,8 +44,8 @@ void walk_stack(const char* p){
 	
 	while(sf && (uintptr_t)sf>0x1000)
 	{
-		printf("...[#%d] Frame: %p, Return address: %p\n", 
-                level, sf, sf->return_addr);
+		printf("...[#%d] Frame: %p, Prev-Ptr: %p, Return address: %p\n", 
+                level, sf,sf->prev_ptr, sf->return_addr);
                 // Move to previous frame
         	sf = sf->prev_ptr;
         	level++;

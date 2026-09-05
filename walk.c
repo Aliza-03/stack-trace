@@ -3,19 +3,20 @@
 #include <stdlib.h>
 
 
-void func_a()
+void func_a(int y)
 {
-	printf("Hello World\n");	
+	printf("%d\n",y);	
 }
 
-void func_b()
+void func_b(int y)
 {
-	func_a();
+	y*=2;
+	func_a(y);
 }
 
 void func_c()
 {
-	func_b();
+	func_b(2);
 }
 //--------------------------------------------
 // Stack Walk Logic

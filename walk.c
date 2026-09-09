@@ -1,23 +1,24 @@
 #include<stdio.h>
 #include <stdint.h>
-#include <stdlib.h>
+//#include <stdlib.h>
 #include <elfutils/libdwfl.h>
 
 // Global DWARF handle
 static Dwfl *dwfl = NULL;
 
 /*int init_dwarf(const char *executable) {
-
-    // Open the ELF file
-    Elf *elf = elf_begin(-1, ELF_C_READ, NULL);
-    if (!elf) return -1;
+    // Initialize Dwfl (DWARF Frame Library)
+    dwfl = dwfl_begin(&Dwfl_Callbacks);
+    if (!dwfl) return -1;
     
-    // Initialize DWARF
-    Dwarf = dwarf_begin_elf(elf, DWARF_C_READ, NULL);
-    if (!dwarf) return -1;
+    // Report the executable
+    dwfl_report_offline(dwfl, executable, executable, -1);
+    dwfl_report_end(dwfl, NULL, NULL);
     
     return 0;
-}*/
+}
+	*/
+
 
 
 
@@ -61,6 +62,15 @@ void walk_stack(const char* p){
 	
 	struct stack_frame* sf=(struct stack_frame*)get_current_ptr();
 	int level=0;
+
+	static const Dwfl_Callbacks callbacks = {
+		.find_elf = dwfl_linux_proc_find_elf,
+		.find_debuginfo = dwfl_standard_find_debuginfo,
+	};
+	dwfl = dwfl_begin(&callbacks);
+	//dwfl_linux_proc_report(dwfl, getpid());
+
+	dwfl_report_end(dwfl, NULL, NULL);
 	
 	while(sf && (uintptr_t)sf>0x1000)
 	{
@@ -74,7 +84,7 @@ void walk_stack(const char* p){
                 if (name) func_name = name;
             }
         
-		printf("...[#%d] Frame: %p, Prev-Ptr: %p, Return address: %p,  Function: %c\n", 
+		printf("...[#%d] Frame: %p, Prev-Ptr: %p, Return address: %p,  Function: %s\n", 
                 level, sf,sf->prev_ptr, sf->return_addr,func_name);
                 // Move to previous frame
         	sf = sf->prev_ptr;

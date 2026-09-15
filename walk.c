@@ -8,6 +8,14 @@
 // Global DWARF handle
 static Dwfl *dwfl = NULL;
 
+// Struct for Stack Frame Container
+struct stack_frame
+{
+	struct stack_frame* prev_ptr; //points to the previous frame
+	void* return_addr; // uhhh we'll get to that
+	
+};
+
 int init_dwarf(void) {
     static const Dwfl_Callbacks callbacks = {
         .find_elf = dwfl_linux_proc_find_elf,
@@ -33,15 +41,6 @@ int init_dwarf(void) {
     return 0;
 }
 
-
-//--------------------------------------------
-// Stack Walk Logic
-struct stack_frame
-{
-	struct stack_frame* prev_ptr; //points to the previous frame
-	void* return_addr; // uhhh we'll get to that
-	
-};
 
 //to get current ptr
 
@@ -107,6 +106,8 @@ void func_c()
 	func_b(2);
 }
 
+
+// main
 int main()
 {
 	init_dwarf();
@@ -116,6 +117,5 @@ int main()
 	return 0;
 //-----------------------------------------
 
-	
 
 }

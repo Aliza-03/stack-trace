@@ -5,8 +5,8 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#ifndef STACKTRACE_H
-#define STACKTRACE_H
+#ifndef TRACE_H
+#define TRACE_H
 
 // header file for stack tracer/ Includes basic functionality of traceing the stack and printing function name callbacks
 
@@ -14,6 +14,7 @@
 extern "C" {
 #endif
 
+int init_dwarf(void);
 void walk_stack(const char* p);
 
 
@@ -21,4 +22,4 @@ void walk_stack(const char* p);
 }
 #endif
 
-#endif /* STACKTRACE_H */
+#endif /* TRACE_H */

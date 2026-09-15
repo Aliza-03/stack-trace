@@ -4,6 +4,7 @@
 #include <elfutils/libdwfl.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include"trace.h"
 
 // Global DWARF handle
 static Dwfl *dwfl = NULL;
@@ -53,6 +54,7 @@ void* get_current_ptr()
 
 void walk_stack(const char* p){
 	
+	init_dwarf();
 	printf("Strolling from %s\n",p);
 	const char *func_name = "unknown";
 	
@@ -87,35 +89,4 @@ void walk_stack(const char* p){
 		printf("Total frames: %d\n", level);
 	}
     
-    /// Toy Functions
 
-	void func_a(int y)
-{
-	walk_stack("a");
-	printf("%d\n",y);	
-}
-
-void func_b(int y)
-{
-	y*=2;
-	func_a(y);
-}
-
-void func_c()
-{
-	func_b(2);
-}
-
-
-// main
-int main()
-{
-	init_dwarf();
-	printf("Basic Stack Call\n");
-	func_c();
-	//walk_stack("main");
-	return 0;
-//-----------------------------------------
-
-
-}

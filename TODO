@@ -3,6 +3,8 @@
 [] Code Cleanup. Memory Cleanup
 [] Implement capability to handle threaded Code
 [] Implement basic recognition for stack overflow
+[] Add a Header File
 [] Implement basic recognition for a corrupted stack
 [] Update README.md
+[] Upgrade from a frame pointer. 
 

@@ -8,3 +8,9 @@
 [] Update README.md
 [] Upgrade from a frame pointer. 
 [] Document explaining wtf i did because I keep forgetting everytime I come back
+
+Some Notes to Recall:
+- Frame Pointer Omission. The current code assumes rbp is a reliable stack ptr. Assess and test in scenarios
+where this is not the case. What are alternatives I can work on?
+- Consider tail-call optimization. Explore what aspects of code will be rendered useless due to Implement
+- Buffer overflows. Make the code able to record a buffer overflow and not break lol

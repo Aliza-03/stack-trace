@@ -23,13 +23,15 @@ void func_c()
 
 void recurse(int n)
 {
-		walk_stack("walk_stack");
+		
 		if (n>0){
 			printf("Trace %d\n",n); //why does recursion print multiple stacks
 			recurse(n-1);
 		}
 
+		walk_stack("walk_stack");
 		return;
+		
 
 
 }
@@ -41,6 +43,7 @@ int main()
 	printf("Basic Stack Call\n");
 	//func_c();
 	recurse(3);
+	
 	//walk_stack("main");
 	return 0;
 //-----------------------------------------
